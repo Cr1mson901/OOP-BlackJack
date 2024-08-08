@@ -1,3 +1,10 @@
+import systemColors
+suits = {
+    "heart":  ("♡",systemColors.RED),
+    "diamond":("⬦",systemColors.RED),
+    "spade":  ("♤",systemColors.BLACK),
+    "club":   ("♧",systemColors.BLACK)
+}
 class deck:
     def __init__(self) -> None:
         pass
