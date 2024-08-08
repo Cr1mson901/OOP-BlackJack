@@ -1,4 +1,5 @@
 import systemColors
+import random
 suits = {
     "heart":  ("♡",systemColors.RED),
     "diamond":("⬦",systemColors.RED),
@@ -7,14 +8,17 @@ suits = {
 }
 class shoe:
     def __init__(self) -> None:
-        self.stack = []
+        pass
 
     def build(self, amount) -> None:
-        deck = []
+        self.stack = []
         for i in range(amount):
-            for card in range(2,11):
+            for card in range(2,14):
                 for suit in suits.keys():
-                    deck.append()
+                    self.stack.append((card,suit))
+            for suit in suits.keys():
+                self.stack.append((1,suit))
+        random.shuffle(self.stack)
 
 class hand:
     spacing = " " * 2
