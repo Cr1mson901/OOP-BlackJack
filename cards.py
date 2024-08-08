@@ -21,5 +21,5 @@ class hand:
         self.count += 0
     
     def print(self):
-        for pieces in zip(*self):
+        for pieces in zip(*self.cards):
             print(self.spacing.join(pieces))
