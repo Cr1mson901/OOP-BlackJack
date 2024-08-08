@@ -5,8 +5,14 @@ class deck:
 class hand:
     spacing = " " * 2
     def __init__(self) -> None:
-        pass
-
+        self.cards = []
+        self.count = 0
+    
+    #TODO: add hit functionality
+    def hit(self):
+        self.cards.append()    
+        self.count += 0
+    
     def print(self):
         for pieces in zip(*self):
             print(self.spacing.join(pieces))
