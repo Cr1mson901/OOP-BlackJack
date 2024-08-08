@@ -1,15 +1,17 @@
 import cards
-import ascii #Art for the cards
+from ascii import card_art #Art for the cards
 import systemColors #A way to color outputs in the consol
 from platform   import system as system_name  # Returns the system/OS name
 from subprocess import call   as system_call  # Execute a shell command
 
+spacing = ' ' * 2  # Between cards.
+background = systemColors.WHITEB
+card_color = systemColors.RED
+print(f"{systemColors.B}")
+
+
 
 def clear_screen():
-    """
-    Clears the terminal screen.
-    """
-    
     # Clear screen command as function of OS
     command = 'cls' if system_name().lower().startswith('win') else 'clear'
 
@@ -18,11 +20,11 @@ def clear_screen():
 
 clear_screen()
 
-spacing = ' ' * 2  # Between cards.
-cards = ascii.card_art[0], ascii.card_art[3], ascii.card_art[1]
+cards = card_art[0], card_art[3], card_art[1]
 
+print(f"{card_color}{background}")
 for pieces in zip(*(card.splitlines() for card in cards)):
-    print(spacing.join(pieces).format(systemColors.CYAN,systemColors.B,systemColors.WHITEB))
+    print(spacing.join(pieces))
 
 
 
