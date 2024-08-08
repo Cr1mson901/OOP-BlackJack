@@ -1,5 +1,6 @@
 import systemColors
 import random
+import ascii
 suits = {
     "heart":  ("♡",systemColors.RED),
     "diamond":("⬦",systemColors.RED),
@@ -27,10 +28,15 @@ class hand:
         self.count = 0
     
     #TODO: add hit functionality
-    def hit(self) -> None:
-        self.cards.append()    
+    def hit(self,shoe) -> None:
+        self.cards.append(shoe.stack.pop())    
         self.count += 0
     
     def print(self) -> None:
-        for pieces in zip(*self.cards):
+        #Nested line comprehension that takes the each line of the ascii art and converts it to the correct suit
+        cards = [[line.replace("♡",suits[card[1]][0]).replace(systemColors.RED, suits[card[1]][1])
+                for line in ascii.numbers[card[0]]] 
+                if card[0] != 1 else ascii.aces[card[1]] for card in self.cards]
+        for pieces in zip(*cards):
             print(self.spacing.join(pieces))
+
