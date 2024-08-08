@@ -106,4 +106,28 @@ systemColors.RED + "|♡ ♡ ♡|",
 systemColors.RED + "|♡ ♡ ♡|",
 systemColors.RED + "|♡ ♡  |",
 systemColors.RED + "|___10|"
+],
+11:[
+systemColors.RED + " _____ ",
+systemColors.RED + "|♡♡♡♡♡|",
+systemColors.RED + "|  ♡♡ |",
+systemColors.RED + "|♡  ♡ |",
+systemColors.RED + "| ♡♡  |",
+systemColors.RED + "|_____|"
+],
+12:[
+systemColors.RED + " _____ ",
+systemColors.RED + "| ♡♡♡ |",
+systemColors.RED + "|♡   ♡|",
+systemColors.RED + "|♡ ♡ ♡|",
+systemColors.RED + "| ♡♡♡ |",
+systemColors.RED + "|____♡|"
+],
+13:[
+systemColors.RED + " _____ ",
+systemColors.RED + "|♡   ♡|",
+systemColors.RED + "|♡ ♡  |",
+systemColors.RED + "|♡♡   |",
+systemColors.RED + "|♡ ♡  |",
+systemColors.RED + "|♡___♡|"
 ]}
