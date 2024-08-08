@@ -1,6 +1,6 @@
 import systemColors
 
-faces = {
+aces = {
 "spade":[
 systemColors.BLACK + " _____ ",
 systemColors.BLACK + "|A .  |",
