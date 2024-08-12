@@ -11,4 +11,4 @@ def clear_screen():
 
 def color_scheme(background = systemColors.WHITEB):
     #Sets the terminal to print in bold with a colored background
-    print(f"{systemColors.B}{background}")
+    print(f"{systemColors.B}{background}",end="")
