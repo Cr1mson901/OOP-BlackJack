@@ -1,24 +1,30 @@
 import cards
 import gui
 import systemColors #A way to color outputs in the consol
-import random
-import time
+import gamePlay
 
-player_name = input("Hello player, what is your name?\n").capitalize()
-#Randomizes the starting bankroll, making it kinda feel like slot wheel
-bankroll = random.randint(500,5000)
-for i in range(50):
-    print(f"{player_name} you will be starting with ${random.randint(500,5000)}")
-    time.sleep(.025)
+def start() -> None:
+    global player_name, shoe, dealer, player, bankroll
+    player_name = input("Hello player, what is your name?\n").capitalize()
     gui.clear_screen()
-print(f"{player_name} you will be starting with ${bankroll}")
+    try:
+        decks = int(input("How many decks would you like to be in the shoe(Default 3/Max 10)"))
+        if decks > 10:
+            raise Exception("Too many decks")
+    except:
+        decks = 3
+    bankroll = gamePlay.bankroll_gen(player_name)
+    #Generates two hands, one for the player and one for the Dealer
+    player = cards.hand(player_name)
+    dealer = cards.hand()
+    #Makes a shoe entity so it can be filled with cards
+    shoe = cards.shoe()
+    shoe.build(decks)
 
-gui.color_scheme()
+if __name__ == "__main__":
+    start()
+
 #Used for troubleshooting
-player = cards.hand(player_name)
-dealer = cards.hand()
-shoe = cards.shoe()
-shoe.build(3)
 dealer.hit(shoe)
 dealer.hit(shoe)
 player.hit(shoe)
@@ -29,4 +35,5 @@ dealer.dealer_print()
 while input(f"{systemColors.RESET}Want to hit?")[0] != "n":
     player.hit(shoe)
     gui.clear_screen()
+    dealer.dealer_print()
     player.hand_print()
