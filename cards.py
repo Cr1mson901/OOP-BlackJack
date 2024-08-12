@@ -2,6 +2,7 @@ import systemColors
 import random
 import ascii
 import gui
+import gamePlay
 suits = {
     "heart":  ("♡",systemColors.RED),
     "diamond":("⬦",systemColors.RED),
@@ -42,15 +43,16 @@ class hand:
     def hit(self,shoe) -> None:
         self.cards.append(shoe.stack.pop())    
         self.count += 0
+        self.bust_check()
     
-    def hand_print(self,hand=0) -> None:
+    def hand_print(self,my_hand=0) -> None:
         #Nested line comprehension that takes the each line of the ascii art and converts it to the correct suit
-        self.name_tag()
-        if not hand:
-            hand = self.cards
+        if not my_hand:
+            my_hand = self.cards
+        self.name_tag(my_hand)
         cards = [[line.replace("♡",suits[card[1]][0]).replace(systemColors.RED, suits[card[1]][1])
                 for line in ascii.numbers[card[0]]] 
-                if card[0] != 1 else ascii.aces[card[1]] for card in hand]
+                if card[0] != 1 else ascii.aces[card[1]] for card in my_hand]
         for pieces in zip(*cards):
             print(self.spacing.join(pieces))
     
@@ -59,9 +61,15 @@ class hand:
         self.hand_print([self.cards[0],[14,"heart"]])
             
     #Prints a name tag for the cards to make it easier for the player to distinguish their cards        
-    def name_tag(self) -> None:
-        print(f"{systemColors.RESET}{systemColors.RED}{self.name}")
+    def name_tag(self,my_hand) -> None:
+        print(f"{systemColors.RESET}{systemColors.RED}{self.name} {gamePlay.total(my_hand)}")
         gui.color_scheme()
 
+    #TODO: add bust check funtionality
     def bust_check(self):
+    #     total = gamePlay.total(self)
+    #     if total > 21:
+    #         return True
+    #     else:
+    #         False
         pass
