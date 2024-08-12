@@ -150,10 +150,11 @@ systemColors.RED + "╚═════╝"
 
 ]}
 face_down = [
-systemColors.BLACK + "╔═════╗",
-systemColors.BLACK + "║▒▒▒▒▒║",
-systemColors.BLACK + "║▒▒▒▒▒║",
-systemColors.BLACK + "║▒▒▒▒▒║",
-systemColors.BLACK + "║▒▒▒▒▒║",
-systemColors.BLACK + "╚═════╝"
+systemColors.GREEN + "╔═════╗",
+systemColors.GREEN + "║▒▒▒▒▒║",
+systemColors.GREEN + "║▒▒▒▒▒║",
+systemColors.GREEN + "║▒▒▒▒▒║",
+systemColors.GREEN + "║▒▒▒▒▒║",
+systemColors.GREEN + "║▒▒▒▒▒║",
+systemColors.GREEN + "╚═════╝"
 ]
