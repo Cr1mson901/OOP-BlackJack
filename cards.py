@@ -62,7 +62,7 @@ class hand:
             
     #Prints a name tag for the cards to make it easier for the player to distinguish their cards        
     def name_tag(self,my_hand) -> None:
-        print(f"{systemColors.RESET}{systemColors.RED}{self.name} {gamePlay.total(my_hand)}")
+        print(f"{systemColors.RESET}{systemColors.RED}{self.name} {self.adder(my_hand)}")
         gui.color_scheme()
 
     #TODO: add bust check funtionality
@@ -73,3 +73,24 @@ class hand:
     #     else:
     #         False
         pass
+    
+    def adder(self,cards):
+        aces = []
+        numbers = []
+        for card in cards:
+            if card[0] == 1:
+                aces.append(11)
+            elif card[0] == 14:
+                continue
+            elif card[0] > 9:
+                numbers.append(10)
+            else:
+                numbers.append(card[0])
+        count = sum(numbers)
+        while aces:
+            if count + aces.pop() + len(aces) < 22:
+                count += 11
+            else:
+                count += 1
+        self.count = count
+        return self.count
