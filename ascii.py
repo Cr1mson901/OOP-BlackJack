@@ -148,8 +148,8 @@ systemColors.RED + "║♡ ♡  ║",
 systemColors.RED + "║♡   K║",
 systemColors.RED + "╚═════╝"
 
-]}
-face_down = [
+],
+14:[
 systemColors.GREEN + "╔═════╗",
 systemColors.GREEN + "║▒▒▒▒▒║",
 systemColors.GREEN + "║▒▒▒▒▒║",
@@ -157,4 +157,4 @@ systemColors.GREEN + "║▒▒▒▒▒║",
 systemColors.GREEN + "║▒▒▒▒▒║",
 systemColors.GREEN + "║▒▒▒▒▒║",
 systemColors.GREEN + "╚═════╝"
-]
+]}
