@@ -1,6 +1,7 @@
 import systemColors
 import random
 import ascii
+import gui
 suits = {
     "heart":  ("♡",systemColors.RED),
     "diamond":("⬦",systemColors.RED),
@@ -32,33 +33,35 @@ class shoe:
 
 class hand:
     spacing = " " * 2
-    def __init__(self,dealer=False) -> None:
+    def __init__(self,name="Dealer") -> None:
         self.cards = []
         self.count = 0
+        self.name = name
     
     #TODO: add hit functionality
     def hit(self,shoe) -> None:
         self.cards.append(shoe.stack.pop())    
         self.count += 0
     
-    def hand_print(self) -> None:
+    def hand_print(self,hand=0) -> None:
         #Nested line comprehension that takes the each line of the ascii art and converts it to the correct suit
+        self.name_tag()
+        if not hand:
+            hand = self.cards
         cards = [[line.replace("♡",suits[card[1]][0]).replace(systemColors.RED, suits[card[1]][1])
                 for line in ascii.numbers[card[0]]] 
-                if card[0] != 1 else ascii.aces[card[1]] for card in self.cards]
+                if card[0] != 1 else ascii.aces[card[1]] for card in hand]
         for pieces in zip(*cards):
             print(self.spacing.join(pieces))
     
+    #Prints the first card and a facedown from the dealer
     def dealer_print(self) -> None:
-        card = self.cards[0]
-        if card[0] != 1:
-            cards = [[line.replace("♡",suits[card[1]][0]).replace(systemColors.RED, suits[card[1]][1])
-                for line in ascii.numbers[card[0]]]]
-        else:
-            cards = ascii.aces[card[1]]
-        cards.append(ascii.face_down)
-        for pieces in zip(*cards):
-            print(self.spacing.join(pieces))
+        self.hand_print([self.cards[0],[14,"heart"]])
             
+    #Prints a name tag for the cards to make it easier for the player to distinguish their cards        
+    def name_tag(self) -> None:
+        print(f"{systemColors.RESET}{systemColors.RED}{self.name}")
+        gui.color_scheme()
+
     def bust_check(self):
         pass
