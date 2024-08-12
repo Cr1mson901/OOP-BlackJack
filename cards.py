@@ -8,8 +8,9 @@ suits = {
     "club":   ("♧",systemColors.BLACK)
 }
 class shoe:
-    def __init__(self) -> None:
-        pass
+    def __init__(self,decks=3,cut=0) -> None:
+        self.cut_card = cut
+        self.decks = decks
 
     def build(self, amount) -> None:
         self.stack = []
@@ -20,6 +21,14 @@ class shoe:
             for suit in suits.keys():
                 self.stack.append((1,suit))
         random.shuffle(self.stack)
+        self.slice()
+
+    def slice(self):
+        cut_card = random.randint(15,37)
+
+    def rebuild_check(self):
+        if len(self.stack) <= self.cut_card:
+            self.build(self.decks)
 
 class hand:
     spacing = " " * 2
@@ -40,3 +49,5 @@ class hand:
         for pieces in zip(*cards):
             print(self.spacing.join(pieces))
 
+    def bust_check(self):
+        pass
