@@ -9,13 +9,16 @@ def bankroll_gen(name):
         time.sleep(.025)
         gui.clear_screen()
     print(f"{name} you will be starting with ${bankroll}")
+    return bankroll
 
-def total(hand):
+def total(cards):
     aces = []
     numbers = []
-    for card in hand.cards:
+    for card in cards:
         if card[0] == 1:
             aces.append(11)
+        elif card[0] == 14:
+            continue
         elif card[0] > 9:
             numbers.append(10)
         else:
