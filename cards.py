@@ -32,7 +32,7 @@ class shoe:
 
 class hand:
     spacing = " " * 2
-    def __init__(self) -> None:
+    def __init__(self,dealer=False) -> None:
         self.cards = []
         self.count = 0
     
@@ -41,13 +41,24 @@ class hand:
         self.cards.append(shoe.stack.pop())    
         self.count += 0
     
-    def print(self) -> None:
+    def hand_print(self) -> None:
         #Nested line comprehension that takes the each line of the ascii art and converts it to the correct suit
         cards = [[line.replace("♡",suits[card[1]][0]).replace(systemColors.RED, suits[card[1]][1])
                 for line in ascii.numbers[card[0]]] 
                 if card[0] != 1 else ascii.aces[card[1]] for card in self.cards]
         for pieces in zip(*cards):
             print(self.spacing.join(pieces))
-
+    
+    def dealer_print(self) -> None:
+        card = self.cards[0]
+        if card[0] != 1:
+            cards = [[line.replace("♡",suits[card[1]][0]).replace(systemColors.RED, suits[card[1]][1])
+                for line in ascii.numbers[card[0]]]]
+        else:
+            cards = ascii.aces[card[1]]
+        cards.append(ascii.face_down)
+        for pieces in zip(*cards):
+            print(self.spacing.join(pieces))
+            
     def bust_check(self):
         pass
