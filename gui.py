@@ -7,7 +7,7 @@ def clear_screen():
     command = 'cls' if system_name().lower().startswith('win') else 'clear'
 
     # Action
-    system_call([command])
+    system_call([command],shell=True)
 
 def color_scheme(background = systemColors.WHITEB):
     #Sets the terminal to print in bold with a colored background
