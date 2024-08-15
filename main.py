@@ -33,15 +33,22 @@ def covered_print(covered):
         dealer.hand_print()
     player.hand_print()
 
+def deal_cards():
+    player.hit(shoe)
+    dealer.hit(shoe)
+
 if __name__ == "__main__":
     start()
     while bankroll > 0:
+        #Resets hands
         dealer.cards = []
         player.cards = []
-        print(f"{player_name} you have ${bankroll}")
+        
+        #Acquires a valid bet from the player
         getting_bet = True
         while getting_bet:
             try:
+                print(f"{player_name} you have ${bankroll}")
                 bet = int(input(f"{systemColors.RESET}How much would you like to bet?\n"))
                 if bet > bankroll:
                     raise Exception("Not enough money")
@@ -52,38 +59,41 @@ if __name__ == "__main__":
             except:
                 gui.clear_screen()
                 print("Please input a valid bet")
-        #Used for troubleshooting
-        dealer.hit(shoe)
-        dealer.hit(shoe)
-        player.hit(shoe)
-        player.hit(shoe)
+       
+        #Deals out two cards to the player and dealer
+        for i in range(2):
+            deal_cards()
 
-        if player.adder(player.cards) == 21:
+        #Checks if Player or Dealer has a BlackJack before playing TODO: skip rest if blackjack
+        if player.count == 21:
             print("Black Jack")
             bankroll += int(bet * 1.5)
-        elif dealer.adder(dealer.cards) == 21:
+        elif dealer.count == 21:
             print("You lose")
             bankroll -= bet
-        dealer.dealer_print()
-        player.hand_print()
-
-
+      
+        #Displays the dealt out cards
+        covered_print(True)
+        
         while input(f"{systemColors.RESET}Want to hit?")[0] != "n":
             player.hit(shoe)
             covered_print(True)
+            #Stops if hand busts
             if player.busted():
                 break
+
         covered_print(False)
         time.sleep(1)
+        #Dealers turn if the player is still available
         if not player.busted():
-            while dealer.adder(dealer.cards) < 16:
+            while dealer.count < 16:
                 print(systemColors.RESET,end="")
                 dealer.hit(shoe)
                 covered_print(False)
                 time.sleep(1)
                 if dealer.busted():
                     break
-                            
+            #TODO: fix this so ties work
             print_max = lambda hand : print(f"{systemColors.RESET}{hand.name} is the winner of this hand with {hand.count}")
             print_max(max(dealer,player,key=lambda hand : hand.count))
         else:
