@@ -39,7 +39,19 @@ if __name__ == "__main__":
         dealer.cards = []
         player.cards = []
         print(f"{player_name} you have ${bankroll}")
-        bet = input(f"{systemColors.RESET}How much would you like to bet?\n")
+        getting_bet = True
+        while getting_bet:
+            try:
+                bet = int(input(f"{systemColors.RESET}How much would you like to bet?\n"))
+                if bet > bankroll:
+                    raise Exception("Not enough money")
+                elif bet < 1:
+                    raise Exception("Not big enough of a bet")
+                else:
+                    getting_bet = False
+            except:
+                gui.clear_screen()
+                print("Please input a valid bet")
         #Used for troubleshooting
         dealer.hit(shoe)
         dealer.hit(shoe)
@@ -60,16 +72,23 @@ if __name__ == "__main__":
             player.hit(shoe)
             covered_print(True)
             if player.busted():
-                continue
-        covered_print(True)
+                break
+        covered_print(False)
         time.sleep(1)
-        while dealer.adder(dealer.cards) < 16:
-            print(systemColors.RESET,end="")
-            dealer.hit(shoe)
-            covered_print(False)
-            time.sleep(1)
-
-        print_max = lambda hand : print(f"{systemColors.RESET}{systemColors.RED}{hand.name} is the winner of this hand")
-        print_max(max(dealer,player,key=lambda hand : hand.count))
-
+        if not player.busted():
+            while dealer.adder(dealer.cards) < 16:
+                print(systemColors.RESET,end="")
+                dealer.hit(shoe)
+                covered_print(False)
+                time.sleep(1)
+                if dealer.busted():
+                    break
+                            
+            print_max = lambda hand : print(f"{systemColors.RESET}{hand.name} is the winner of this hand with {hand.count}")
+            print_max(max(dealer,player,key=lambda hand : hand.count))
+        else:
+            #Print busted message
+            print(f"{systemColors.RESET}{player.name} busted so the Dealer wins this round")
+            bankroll -= bet
+        shoe.rebuild_check()
 print(systemColors.RESET,end="")
