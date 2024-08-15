@@ -26,7 +26,7 @@ class shoe:
         self.slice()
 
     def slice(self):
-        cut_card = random.randint(15,37)
+        self.cut_card = random.randint(15,37)
 
     def rebuild_check(self):
         if len(self.stack) <= self.cut_card:
