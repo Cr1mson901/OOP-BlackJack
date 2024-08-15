@@ -11,6 +11,8 @@ def start() -> None:
         decks = int(input("How many decks would you like to be in the shoe(Default 3/Max 10)"))
         if decks > 10:
             raise Exception("Too many decks")
+        if decks < 1:
+            raise Exception("Not enough decks")
     except:
         decks = 3
     bankroll = gamePlay.bankroll_gen(player_name)
