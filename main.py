@@ -24,36 +24,52 @@ def start() -> None:
     shoe = cards.shoe()
     shoe.build(decks)
 
+#Prints the hands with dealers card hidden or uncovered depending on bool
+def covered_print(covered):
+    gui.clear_screen()
+    if covered:
+        dealer.dealer_print()
+    else:
+        dealer.hand_print()
+    player.hand_print()
+
 if __name__ == "__main__":
     start()
+    while bankroll > 0:
+        dealer.cards = []
+        player.cards = []
+        print(f"{player_name} you have ${bankroll}")
+        bet = input(f"{systemColors.RESET}How much would you like to bet?\n")
+        #Used for troubleshooting
+        dealer.hit(shoe)
+        dealer.hit(shoe)
+        player.hit(shoe)
+        player.hit(shoe)
 
-#Used for troubleshooting
-dealer.hit(shoe)
-dealer.hit(shoe)
-player.hit(shoe)
-player.hit(shoe)
-dealer.dealer_print()
-player.hand_print()
+        if player.adder(player.cards) == 21:
+            print("Black Jack")
+            bankroll += int(bet * 1.5)
+        elif dealer.adder(dealer.cards) == 21:
+            print("You lose")
+            bankroll -= bet
+        dealer.dealer_print()
+        player.hand_print()
 
 
-while input(f"{systemColors.RESET}Want to hit?")[0] != "n":
-    player.hit(shoe)
-    gui.clear_screen()
-    dealer.dealer_print()
-    player.hand_print()
-gui.clear_screen()
-dealer.hand_print()
-player.hand_print()
-time.sleep(1)
-while dealer.adder(dealer.cards) < 16:
-    print(systemColors.RESET,end="")
-    dealer.hit(shoe)
-    gui.clear_screen()
-    dealer.hand_print()
-    player.hand_print()
-    time.sleep(1)
+        while input(f"{systemColors.RESET}Want to hit?")[0] != "n":
+            player.hit(shoe)
+            covered_print(True)
+            if player.busted():
+                continue
+        covered_print(True)
+        time.sleep(1)
+        while dealer.adder(dealer.cards) < 16:
+            print(systemColors.RESET,end="")
+            dealer.hit(shoe)
+            covered_print(False)
+            time.sleep(1)
 
-print_max = lambda hand : print(f"{systemColors.RESET}{systemColors.RED}{hand.name} is the winner of this hand")
-print_max(max(dealer,player,key=lambda hand : hand.count))
+        print_max = lambda hand : print(f"{systemColors.RESET}{systemColors.RED}{hand.name} is the winner of this hand")
+        print_max(max(dealer,player,key=lambda hand : hand.count))
 
 print(systemColors.RESET,end="")
