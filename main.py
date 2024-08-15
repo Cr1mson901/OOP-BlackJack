@@ -2,6 +2,7 @@ import cards
 import gui
 import systemColors #A way to color outputs in the consol
 import gamePlay
+import time
 
 def start() -> None:
     global player_name, shoe, dealer, player, bankroll
@@ -31,11 +32,28 @@ dealer.hit(shoe)
 dealer.hit(shoe)
 player.hit(shoe)
 player.hit(shoe)
-player.hand_print()
 dealer.dealer_print()
+player.hand_print()
+
 
 while input(f"{systemColors.RESET}Want to hit?")[0] != "n":
     player.hit(shoe)
     gui.clear_screen()
     dealer.dealer_print()
     player.hand_print()
+gui.clear_screen()
+dealer.hand_print()
+player.hand_print()
+time.sleep(1)
+while dealer.adder(dealer.cards) < 16:
+    print(systemColors.RESET,end="")
+    dealer.hit(shoe)
+    gui.clear_screen()
+    dealer.hand_print()
+    player.hand_print()
+    time.sleep(1)
+
+print_max = lambda hand : print(f"{systemColors.RESET}{systemColors.RED}{hand.name} is the winner of this hand")
+print_max(max(dealer,player,key=lambda hand : hand.count))
+
+print(systemColors.RESET,end="")
