@@ -30,29 +30,31 @@ def deal_cards():
     player.hit(shoe)
     dealer.hit(shoe)
 
+#Acquires a valid bet from the player
+def get_bet(getting_bet=True):
+    while getting_bet:
+        global bet
+        try:
+            print(f"{player_name}, you have ${bankroll}")
+            bet = int(input(f"{systemColors.RESET}How much would you like to bet?\n"))
+            if bet > bankroll:
+                raise Exception("Not enough money")
+            elif bet < 1:
+                raise Exception("Not big enough of a bet")
+            else:
+                getting_bet = False
+        except:
+            gui.clear_screen()
+            print("Please input a valid bet")
+
 if __name__ == "__main__":
     start()
     while bankroll > 0:
         #Resets hands
         dealer.cards = []
         player.cards = []
-        
-        #Acquires a valid bet from the player
-        getting_bet = True
-        while getting_bet:
-            try:
-                print(f"{player_name} you have ${bankroll}")
-                bet = int(input(f"{systemColors.RESET}How much would you like to bet?\n"))
-                if bet > bankroll:
-                    raise Exception("Not enough money")
-                elif bet < 1:
-                    raise Exception("Not big enough of a bet")
-                else:
-                    getting_bet = False
-            except:
-                gui.clear_screen()
-                print("Please input a valid bet")
-       
+        get_bet()
+
         #Deals out two cards to the player and dealer
         for i in range(2):
             deal_cards()
