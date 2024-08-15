@@ -63,7 +63,12 @@ class hand:
     #Prints a name tag and count for the cards to make it easier for the player to distinguish their cards        
     def name_tag(self,covered=False) -> None:
         if covered:
-            total = self.cards[0][0]
+            if self.cards[0][0] == 1:
+                total = 11
+            elif self.cards[0][0] > 10:
+                total = 10
+            else:
+                total = self.cards[0][0]
         else:
             total = self.count
         print(f"{systemColors.RESET}{systemColors.RED}{self.name} {total}")
