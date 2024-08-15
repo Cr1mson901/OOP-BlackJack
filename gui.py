@@ -12,3 +12,12 @@ def clear_screen():
 def color_scheme(background = systemColors.WHITEB):
     #Sets the terminal to print in bold with a colored background
     print(f"{systemColors.B}{background}",end="")
+
+#Prints the hands with dealers card hidden or uncovered depending on bool
+def covered_print(covered,dealer,player):
+    clear_screen()
+    if covered:
+        dealer.dealer_print()
+    else:
+        dealer.hand_print()
+    player.hand_print()

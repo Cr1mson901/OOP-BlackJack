@@ -24,14 +24,7 @@ def start() -> None:
     shoe = cards.shoe()
     shoe.build(decks)
 
-#Prints the hands with dealers card hidden or uncovered depending on bool
-def covered_print(covered):
-    gui.clear_screen()
-    if covered:
-        dealer.dealer_print()
-    else:
-        dealer.hand_print()
-    player.hand_print()
+
 
 def deal_cards():
     player.hit(shoe)
@@ -73,23 +66,23 @@ if __name__ == "__main__":
             bankroll -= bet
       
         #Displays the dealt out cards
-        covered_print(True)
+        gui.covered_print(True,dealer,player)
         
         while input(f"{systemColors.RESET}Want to hit?")[0] != "n":
             player.hit(shoe)
-            covered_print(True)
+            gui.covered_print(True,dealer,player)
             #Stops if hand busts
             if player.busted():
                 break
 
-        covered_print(False)
+        gui.covered_print(False,dealer,player)
         time.sleep(1)
         #Dealers turn if the player is still available
         if not player.busted():
             while dealer.count < 16:
                 print(systemColors.RESET,end="")
                 dealer.hit(shoe)
-                covered_print(False)
+                gui.covered_print(False,dealer,player)
                 time.sleep(1)
                 if dealer.busted():
                     break
