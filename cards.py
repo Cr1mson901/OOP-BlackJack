@@ -40,10 +40,8 @@ class hand:
         self.name = name
     
     #TODO: add hit functionality
-    def hit(self,shoe) -> None:
-        self.cards.append(shoe.stack.pop())    
-        self.count += 0
-        self.bust_check()
+    def hit(self,shoe) -> bool:
+        self.cards.append(shoe.stack.pop())
     
     def hand_print(self,my_hand=0) -> None:
         #Nested line comprehension that takes the each line of the ascii art and converts it to the correct suit
@@ -66,13 +64,11 @@ class hand:
         gui.color_scheme()
 
     #TODO: add bust check funtionality
-    def bust_check(self):
-    #     total = gamePlay.total(self)
-    #     if total > 21:
-    #         return True
-    #     else:
-    #         False
-        pass
+    def busted(self):
+        if self.count > 21:
+            return True
+        else:
+            return False
     
     def adder(self,cards):
         aces = []
