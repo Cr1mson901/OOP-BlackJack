@@ -32,12 +32,16 @@ class shoe:
         if len(self.stack) <= self.cut_card:
             self.build(self.decks)
 
+# TODO: implement class Player:
+
+
 class hand:
     spacing = " " * 2
     def __init__(self,name="Dealer") -> None:
         self.cards = []
         self.count = 0
         self.name = name
+        self.bankroll = 0
     
     #TODO: add hit functionality
     def hit(self,shoe) -> bool:
