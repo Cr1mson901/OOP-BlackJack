@@ -28,6 +28,18 @@ def deal_cards():
     player.hit(shoe)
     dealer.hit(shoe)
 
+def results(player,dealer):
+    if player.count != dealer.count:
+        print_max = lambda hand : print(f"{systemColors.RESET}{hand.name} is the winner of this hand with {hand.count}")
+        winner = max(dealer,player,key=lambda hand : hand.count)
+        print_max(winner)
+        if winner == player:
+            player.bankroll += player.bet
+        else:
+            player.bankroll -= player.bet
+    else:
+        print("Its a tie. The pot has been pushed")
+
 if __name__ == "__main__":
     start()
     while player.bankroll > 0:
@@ -55,25 +67,23 @@ if __name__ == "__main__":
 
             gui.covered_print(False,dealer,player)
             time.sleep(1)
-            #Dealers turn if the player is still available
+            #Dealers turn if the player is still alive
             if not player.busted():
                 while dealer.count < 16:
                     print(systemColors.RESET,end="")
                     dealer.hit(shoe)
                     gui.covered_print(False,dealer,player)
                     time.sleep(1)
+                    #TODO: Dealer loses when busts
                     if dealer.busted():
                         break
-                #TODO: fix this so ties work
-                print_max = lambda hand : print(f"{systemColors.RESET}{hand.name} is the winner of this hand with {hand.count}")
-                print_max(max(dealer,player,key=lambda hand : hand.count))
+                results(player,dealer)
             else:
                 #Print busted message
                 print(f"{systemColors.RESET}{player.name} busted so the Dealer wins this round")
                 player.bankroll -= player.bet
         elif player.count == 21 and dealer.count == 21:
-            print("Its a tie")
-            continue
+            print("Its a tie. The pot has been pushed")
         elif player.count == 21:
             print("Black Jack")
             player.bankroll += int(player.bet * 1.5)
